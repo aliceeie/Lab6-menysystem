@@ -1,4 +1,3 @@
-
 public abstract class AbstractMenuItem implements MenuItem {
 	
     private String title;
