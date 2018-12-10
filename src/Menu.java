@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 	
 public class Menu implements MenuItem {
 	
@@ -9,7 +7,7 @@ public class Menu implements MenuItem {
 	private ArrayList<MenuItem> menyval;
 	private Scanner input = new Scanner(System.in);
 	
-	     /**
+	/**
 	* Skapar en tom meny med den givna rubriken.
 	*/
 	public Menu(String title) {
@@ -40,9 +38,9 @@ public class Menu implements MenuItem {
 	* (4) gå till (1)
 	*/
 	public void execute() {
-		System.out.println(title);
+		System.out.println(title.toUpperCase());
 		System.out.println("===============");
-		   
+		
 		for(int x=0; x<menyval.size(); x++){
 			System.out.println(x + ": " + menyval.get(x).getTitle());
 		} 
