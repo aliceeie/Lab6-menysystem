@@ -4,83 +4,95 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		final ArrayList<ArrayList<String>> library = new ArrayList<ArrayList<String>>();		//Tvådimensionell arraylist där alla böcker sparas
-		final ArrayList<String> book = new ArrayList<String>();									//arrayList där info om varje bok sparas
 		final Scanner input = new Scanner(System.in);
-		final Menu huvudmeny = new Menu("HUVUDMENY");
 		
+		//EN VARULISTA
+		final ProductList varulista = new ProductList();			//Vårt meny-program har en varulista som är av typen ProductList
+		
+		//ALLA MENY-MENYER
+		final Menu huvudmeny = new Menu("Huvudmeny");
+		final Menu varulistaMenu = new Menu("Varulista");			//Skapar en ny meny "Varulista"
+		final Menu addNewVaraMenu = new Menu("Lägg till ny vara");
+
+		//UNDERMENYER TILL "HUVUDMENY"
 		huvudmeny.add(new AbstractMenuItem("Avsluta") {
-			public void execute() { 							// Tom execute --> avlutar programmet
+			public void execute() { 								// Tom execute --> avlutar programmet
 			}
 		});
-		
-		final Menu varuMenu = new Menu("Varulista");			//Skapar en ny meny "Varulista"
-		huvudmeny.add(varuMenu);								//Lägger till den nya menyn i huvudmenyn
-		
-		varuMenu.add(new AbstractMenuItem("Tillbaka") {
+		huvudmeny.add(varulistaMenu);								//Lägger till den nya menyn i huvudmenyn
+		huvudmeny.add(addNewVaraMenu);
+
+		//UNDERMENYER TILL "VARULISTA"
+		varulistaMenu.add(new AbstractMenuItem("Tillbaka") {
 			public void execute() {	
-				huvudmeny.execute();							//Kör modermenyns execute eftersom vi vill visa den igen
+				huvudmeny.execute();								//Kör modermenyns execute eftersom vi vill visa den igen
 			}
 		});
-		varuMenu.add(new AbstractMenuItem("Böcker") {
-			public void execute() {	
-				System.out.println(book.toString() + "\n");			//FIXA PRINTEN
+		varulistaMenu.add(new AbstractMenuItem("Böcker") {
+			public void execute() {
+				varulista.printBooks();
+				huvudmeny.execute();
+			}
+		});
+		varulistaMenu.add(new AbstractMenuItem("Filmer") {
+			public void execute() {
+				varulista.printMovies();
+				huvudmeny.execute();
+			}
+		});
+		varulistaMenu.add(new AbstractMenuItem("Kläder") {
+			public void execute() {
+				varulista.printClothes();
+				huvudmeny.execute();
+			}
+		});
+		varulistaMenu.add(new AbstractMenuItem("Matvaror") {
+			public void execute() {
+				varulista.printFood();
 				huvudmeny.execute();
 			}
 		});
 		
+		varulistaMenu.add(new AbstractMenuItem("Alla") {
+			public void execute() {
+				varulista.printAll();
+				huvudmeny.execute();
+			}
+		});
 		
-		final Menu addVaruMenu = new Menu("Lägg till ny vara");
-		huvudmeny.add(addVaruMenu);
-		
-			addVaruMenu.add(new AbstractMenuItem("Tillbaka"){
-	    		public void execute(){
-	    			huvudmeny.execute();
-	    		}
-	    	});
-			
-			
-		final Menu books = new Menu("Lägg till bok");
-		addVaruMenu.add(books);
-			
-			books.add(new AbstractMenuItem("Tillbaka"){
-	    		public void execute(){
-	    			addVaruMenu.execute();
-	    		}
-	    	});
-			
-			books.add(new AbstractMenuItem("Bok") {
-				public void execute() {
-					System.out.println("Varunummer: ");		//FIXA SÅ MAN KAN SPARA PÅ VILKEN PLATS MAN VILL (vilket varunummer som helst)
-					int varuNummer = input.nextInt();			//Sparar varunumret så vi kan se till att boken länkas till rätt plats i Arraylisten
-					
-					System.out.println("Titel: ");				//Titel kommer sparas på plats noll i ArrayListen book
-					book.add(input.nextLine());
-					
-					System.out.println("Författare: ");		//HÄR ÄR DET KNAS MED SCANNERN
-					book.add(input.nextLine());
-					
-					System.out.println("Pris: ");
-					book.add(input.nextLine());
-					
-					System.out.println("Miljömärkt: ");
-					book.add(input.nextLine());	
-					
-					library.add(varuNummer, book);				//Lägger till den aktuella boken på samma plats som varunumret säger
-					addVaruMenu.execute();
-				}
-	    	});	
-		
-			final Menu movies = new Menu("Lägg till film");
-			addVaruMenu.add(movies);
+		//UNDERMENYER TILL "LÄGG TILL NY VARA"
+		addNewVaraMenu.add(new AbstractMenuItem("Tillbaka"){
+    		public void execute(){
+    			huvudmeny.execute();
+    		}
+	    });
+		addNewVaraMenu.add(new AbstractMenuItem("Bok"){
+			public void execute(){
+				varulista.addBook();
+				addNewVaraMenu.execute();
+			}
+		});
+		addNewVaraMenu.add(new AbstractMenuItem("Film"){
+			public void execute(){
+				varulista.addMovie();
+				addNewVaraMenu.execute();
+			}
+		});
+		addNewVaraMenu.add(new AbstractMenuItem("Kläder"){
+			public void execute(){
+				varulista.addClothes();
+				addNewVaraMenu.execute();
+			}
+		});
+		addNewVaraMenu.add(new AbstractMenuItem("Mat"){
+			public void execute(){
 				
-				movies.add(new AbstractMenuItem("Tillbaka"){
-					public void execute(){
-						addVaruMenu.execute();
-					}
-				});
-	    	
+				varulista.addFood();
+				addNewVaraMenu.execute();
+			}
+		});
+	    
+		//HÄR STARTAR PROGRAMMET PÅ RIKTIGT
 		huvudmeny.execute();
 	}
-
 }

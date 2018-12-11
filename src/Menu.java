@@ -38,10 +38,11 @@ public class Menu implements MenuItem {
 	* (4) gå till (1)
 	*/
 	public void execute() {
-		System.out.println(title.toUpperCase());
+		System.out.println();							//Tom rad innan rukriken
+		System.out.println(title.toUpperCase());		//Menyrubriken skrivs alltid ut med stora bokstäver
 		System.out.println("===============");
 		
-		for(int x=0; x<menyval.size(); x++){
+		for(int x = 0; x < menyval.size(); x++){
 			System.out.println(x + ": " + menyval.get(x).getTitle());
 		} 
 		menyval.get(input.nextInt()).execute();
