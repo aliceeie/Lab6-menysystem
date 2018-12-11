@@ -4,8 +4,12 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		final Scanner input = new Scanner(System.in);
-		
+		final ArrayList<ArrayList<String>> library = new ArrayList<ArrayList<String>>();		//Tvådimensionell arraylist där alla böcker sparas
+		final ArrayList<String> book = new ArrayList<String>();									//arrayList där info om varje bok sparas
+		final ArrayList<String> movie = new ArrayList<String>();								//arrayList där info om varje film sparas
+		final ArrayList<String> clothes = new ArrayList<String>();								//arrayList där info om varje film sparas
+		final ArrayList<String> food = new ArrayList<String>();								//arrayList där info om varje film sparas
+
 		//EN VARULISTA
 		final ProductList varulista = new ProductList();			//Vårt meny-program har en varulista som är av typen ProductList
 		
@@ -51,8 +55,7 @@ public class Main {
 				varulista.printFood();
 				huvudmeny.execute();
 			}
-		});
-		
+		});		
 		varulistaMenu.add(new AbstractMenuItem("Alla") {
 			public void execute() {
 				varulista.printAll();
@@ -60,6 +63,7 @@ public class Main {
 			}
 		});
 		
+
 		//UNDERMENYER TILL "LÄGG TILL NY VARA"
 		addNewVaraMenu.add(new AbstractMenuItem("Tillbaka"){
     		public void execute(){

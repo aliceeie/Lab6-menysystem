@@ -52,7 +52,7 @@ public class ProductList {
 	
 	public void printMovies() {
 		System.out.println("\nFILMER:");
-		System.out.println("Nmr, Titel, Refissör, Pris");
+		System.out.println("Nmr, Titel, Regissör, Pris");
 		for(int i = 0; i < movies.size(); i++) {
 			movies.get(i).print();
 		}
